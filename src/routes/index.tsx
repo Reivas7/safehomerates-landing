@@ -41,11 +41,11 @@ const serviceCards = [
 ];
 
 const faqs = [
-  ["Is SafeHomeRates free to use?", "Yes. Requesting and comparing quotes through SafeHomeRates is free, and there is no obligation to hire or purchase."],
-  ["How does the matching process work?", "You tell us what you need. We use those details to connect you with providers that may serve your area and fit your request."],
-  ["Are the service providers vetted?", "We work with provider networks that review participating professionals. You should still review credentials, references and terms before making a decision."],
-  ["Will I be required to accept a quote?", "No. You are free to compare your options and decide whether any provider is right for you."],
-  ["What types of home projects can I request quotes for?", "Common requests include plumbing, HVAC, roofing, windows, remodeling and home warranty coverage, among many others."],
+  { question: "Is SafeHomeRates free to use?", answer: "Yes. Requesting and comparing quotes through SafeHomeRates is free, and there is no obligation to hire or purchase." },
+  { question: "How does the matching process work?", answer: "You tell us what you need. We use those details to connect you with providers that may serve your area and fit your request." },
+  { question: "Are the service providers vetted?", answer: "We work with provider networks that review participating professionals. You should still review credentials, references and terms before making a decision." },
+  { question: "Will I be required to accept a quote?", answer: "No. You are free to compare your options and decide whether any provider is right for you." },
+  { question: "What types of home projects can I request quotes for?", answer: "Common requests include plumbing, HVAC, roofing, windows, remodeling and home warranty coverage, among many others." },
 ];
 
 function HomePage() {
@@ -141,14 +141,14 @@ function HomePage() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <SectionHeading eyebrow="Good to know" title="Frequently asked questions" />
           <Accordion.Root type="single" collapsible className="mt-10 border-t border-border">
-            {faqs.map(([question, answer]) => (
-              <Accordion.Item key={question} value={question} className="border-b border-border">
+            {faqs.map((faq) => (
+              <Accordion.Item key={faq.question} value={faq.question} className="border-b border-border">
                 <Accordion.Header>
                   <Accordion.Trigger className="group flex w-full items-center justify-between gap-6 py-5 text-left font-bold text-primary">
-                    {question}<ChevronDown size={19} className="shrink-0 transition-transform group-data-[state=open]:rotate-180" />
+                    {faq.question}<ChevronDown size={19} className="shrink-0 transition-transform group-data-[state=open]:rotate-180" />
                   </Accordion.Trigger>
                 </Accordion.Header>
-                <Accordion.Content className="overflow-hidden pb-5 text-sm leading-7 text-muted-foreground data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">{answer}</Accordion.Content>
+                <Accordion.Content className="overflow-hidden pb-5 text-sm leading-7 text-muted-foreground data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">{faq.answer}</Accordion.Content>
               </Accordion.Item>
             ))}
           </Accordion.Root>
