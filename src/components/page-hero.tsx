@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -25,7 +24,7 @@ export function PageHero({ eyebrow, title, description, points }: PageHeroProps)
             ))}
           </ul>
           <Button asChild variant="quote" size="lg" className="mt-9">
-            <Link to="/home-services">Get Free Quotes <ArrowRight size={18} /></Link>
+            <a href="#lead-form">Get Free Quotes <ArrowRight size={18} /></a>
           </Button>
         </div>
       </section>

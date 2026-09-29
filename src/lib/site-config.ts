@@ -10,13 +10,18 @@ import {
 } from "lucide-react";
 
 export const primaryNavigation = [
-  { label: "Home Services", to: "/home-services" as const },
-  { label: "Home Improvement", to: "/home-improvement" as const },
-  { label: "Home Warranty", to: "/home-warranty" as const },
-  { label: "Partners", to: "/partners" as const },
+  { label: "About Us", to: "/about" as const },
+  { label: "Contact Us", to: "/contact" as const },
+];
+
+export const serviceNavigation = [
+  { label: "Home Services", to: "/home-services" as const, description: "Repairs, maintenance and local services" },
+  { label: "Home Improvement", to: "/home-improvement" as const, description: "Projects, renovations and upgrades" },
+  { label: "Home Warranty", to: "/home-warranty" as const, description: "Explore systems and appliance options" },
 ];
 
 export const footerNavigation = [
+  { label: "About Us", to: "/about" as const },
   { label: "Terms & Conditions", to: "/terms" as const },
   { label: "Privacy Policy", to: "/privacy" as const },
   { label: "Partners", to: "/partners" as const },
