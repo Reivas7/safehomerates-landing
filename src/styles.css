@@ -177,3 +177,17 @@
 @utility shadow-cta {
   box-shadow: 0 10px 24px -12px color-mix(in oklab, var(--cta) 70%, transparent);
 }
+
+@media (min-width: 80rem) {
+  .max-w-6xl,
+  .max-w-7xl {
+    max-width: 82rem;
+  }
+}
+
+@media (min-width: 96rem) {
+  .max-w-6xl,
+  .max-w-7xl {
+    max-width: 90rem;
+  }
+}
