@@ -82,15 +82,15 @@ function HomePage() {
           <SectionHeading eyebrow="Simple from start to finish" title="How it works" description="Three quick steps can put you on the path to a better home quote." />
           <div className="mt-12 grid gap-10 md:grid-cols-3">
             {[
-              [ClipboardList, "01", "Tell us what you need", "Answer a few quick questions about your home and project."],
-              [Users, "02", "Get matched with vetted pros", "Connect with providers who may be a fit for your request."],
-              [HandCoins, "03", "Compare and save", "Review your options and choose what works for your budget."],
-            ].map(([Icon, number, title, text]) => (
-              <article key={String(title)} className="relative text-center md:text-left">
-                <div className="mx-auto flex size-14 items-center justify-center rounded-md bg-primary text-primary-foreground md:mx-0"><Icon size={26} /></div>
-                <span className="mt-5 block text-xs font-extrabold text-brand">STEP {number}</span>
-                <h3 className="mt-2 text-xl font-extrabold text-primary">{String(title)}</h3>
-                <p className="mt-3 leading-7 text-muted-foreground">{String(text)}</p>
+              { icon: ClipboardList, number: "01", title: "Tell us what you need", text: "Answer a few quick questions about your home and project." },
+              { icon: Users, number: "02", title: "Get matched with vetted pros", text: "Connect with providers who may be a fit for your request." },
+              { icon: HandCoins, number: "03", title: "Compare and save", text: "Review your options and choose what works for your budget." },
+            ].map((step) => (
+              <article key={step.title} className="relative text-center md:text-left">
+                <div className="mx-auto flex size-14 items-center justify-center rounded-md bg-primary text-primary-foreground md:mx-0"><step.icon size={26} /></div>
+                <span className="mt-5 block text-xs font-extrabold text-brand">STEP {step.number}</span>
+                <h3 className="mt-2 text-xl font-extrabold text-primary">{step.title}</h3>
+                <p className="mt-3 leading-7 text-muted-foreground">{step.text}</p>
               </article>
             ))}
           </div>
@@ -99,8 +99,8 @@ function HomePage() {
 
       <section className="border-y border-border bg-muted py-7">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-5 px-4 sm:px-6 md:grid-cols-4 lg:px-8">
-          {[[Sparkles, "100% Free"], [Check, "No obligation"], [BadgeCheck, "Vetted partners"], [LockKeyhole, "Secure"]].map(([Icon, label]) => (
-            <div key={String(label)} className="flex items-center justify-center gap-2 text-sm font-bold text-primary"><Icon size={19} className="text-cta" />{String(label)}</div>
+          {[{ icon: Sparkles, label: "100% Free" }, { icon: Check, label: "No obligation" }, { icon: BadgeCheck, label: "Vetted partners" }, { icon: LockKeyhole, label: "Secure" }].map((item) => (
+            <div key={item.label} className="flex items-center justify-center gap-2 text-sm font-bold text-primary"><item.icon size={19} className="text-cta" />{item.label}</div>
           ))}
         </div>
       </section>
@@ -122,14 +122,14 @@ function HomePage() {
           <SectionHeading eyebrow="Homeowners come first" title="A simpler way to find help" description="What homeowners value about comparing their options." />
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {[
-              ["“I received several options without spending hours calling around. The whole process felt straightforward.”", "Maya R.", "Roofing quote"],
-              ["“We found a local HVAC company quickly and could compare the details before deciding.”", "Daniel T.", "HVAC service"],
-              ["“A convenient place to start when we were planning our kitchen update and needed real estimates.”", "Lisa M.", "Kitchen remodel"],
-            ].map(([quote, name, project]) => (
-              <figure key={name} className="rounded-lg border border-border bg-background p-7">
+              { quote: "“I received several options without spending hours calling around. The whole process felt straightforward.”", name: "Maya R.", project: "Roofing quote" },
+              { quote: "“We found a local HVAC company quickly and could compare the details before deciding.”", name: "Daniel T.", project: "HVAC service" },
+              { quote: "“A convenient place to start when we were planning our kitchen update and needed real estimates.”", name: "Lisa M.", project: "Kitchen remodel" },
+            ].map((testimonial) => (
+              <figure key={testimonial.name} className="rounded-lg border border-border bg-background p-7">
                 <div className="flex gap-1 text-cta">{Array.from({ length: 5 }).map((_, index) => <Star key={index} size={16} fill="currentColor" />)}</div>
-                <blockquote className="mt-5 leading-7 text-foreground">{quote}</blockquote>
-                <figcaption className="mt-6 text-sm"><strong className="text-primary">{name}</strong><span className="ml-2 text-muted-foreground">{project}</span></figcaption>
+                <blockquote className="mt-5 leading-7 text-foreground">{testimonial.quote}</blockquote>
+                <figcaption className="mt-6 text-sm"><strong className="text-primary">{testimonial.name}</strong><span className="ml-2 text-muted-foreground">{testimonial.project}</span></figcaption>
               </figure>
             ))}
           </div>

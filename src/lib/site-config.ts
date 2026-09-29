@@ -33,4 +33,4 @@ export const popularServices = [
   { name: "Appliance Protection", description: "Coverage for essential home systems", icon: ShieldCheck },
 ];
 
-export const apiBaseUrl = import.meta.env.VITE_API_URL;
+export const apiBaseUrl = import.meta.env["VITE_API_URL"];
