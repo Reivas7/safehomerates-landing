@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Project architecture
+
+- Use TanStack Router file routes with shared navigation definitions in `src/lib/site-config.ts`; this preserves framework-native type safety while centralizing all site links.
+- Submit future lead forms directly to the external `VITE_API_URL`; this project intentionally has no built-in backend or database.
