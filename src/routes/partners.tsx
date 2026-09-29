@@ -1,0 +1,12 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, BadgeCheck, Handshake, Users } from "lucide-react";
+import { Button } from "../components/ui/button";
+
+export const Route = createFileRoute("/partners")({
+  head: () => ({ meta: [{ title: "Partner With SafeHomeRates" }, { name: "description", content: "Learn how home service providers can partner with SafeHomeRates to reach homeowners." }, { property: "og:title", content: "Partner With SafeHomeRates" }, { property: "og:description", content: "Reach homeowners actively comparing home service and improvement options." }, { property: "og:type", content: "website" }, { property: "og:url", content: "/partners" }, { name: "twitter:card", content: "summary_large_image" }], links: [{ rel: "canonical", href: "/partners" }] }),
+  component: PartnersPage,
+});
+
+function PartnersPage() {
+  return <main><section className="bg-hero py-18 text-primary-foreground sm:py-24"><div className="mx-auto max-w-5xl px-4 text-center sm:px-6"><p className="text-sm font-extrabold uppercase tracking-wide text-hero-accent">Partners</p><h1 className="mx-auto mt-4 max-w-3xl text-4xl font-extrabold sm:text-5xl">Connect with homeowners looking for help</h1><p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-hero-muted">SafeHomeRates helps qualified service providers reach consumers actively exploring home solutions.</p></div></section><section className="bg-background py-18"><div className="mx-auto grid max-w-5xl gap-6 px-4 sm:px-6 md:grid-cols-3">{[[Users,"Relevant opportunities","Connect with homeowners based on service needs and coverage areas."],[BadgeCheck,"Trusted experience","Join a consumer-first experience built around clarity and choice."],[Handshake,"Room to grow","Supplement your customer acquisition with measurable opportunities."]].map(([Icon,title,text])=><article key={String(title)} className="border-t-4 border-brand bg-muted p-6"><Icon className="text-brand" size={28}/><h2 className="mt-5 text-lg font-extrabold text-primary">{String(title)}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{String(text)}</p></article>)}</div><div className="mt-12 text-center"><Button asChild variant="quote" size="lg"><Link to="/">Learn more about SafeHomeRates <ArrowRight size={18}/></Link></Button></div></section></main>;
+}
