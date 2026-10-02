@@ -14,8 +14,25 @@ type LeadFormProps = {
   presentation?: "section" | "hero";
 };
 
-const consentText =
-  "By checking this box, I provide my electronic signature and express written consent to be contacted by SafeHomeRates and its partners at the phone number provided, including by autodialed calls, prerecorded messages and text messages, even if my number is on a Do Not Call list. Consent is not a condition of purchase. Message/data rates may apply. See our Privacy Policy and Terms.";
+const consentDetails: Record<LeadServiceType, { offer: string; providers: string }> = {
+  "home-services": {
+    offer: "the home services I requested",
+    providers: "participating home service providers",
+  },
+  "home-improvement": {
+    offer: "the home improvement projects I requested",
+    providers: "participating contractors and home improvement providers",
+  },
+  "home-warranty": {
+    offer: "home warranty plans and related offers",
+    providers: "participating home warranty providers",
+  },
+};
+
+function getConsentText(serviceType: LeadServiceType) {
+  const details = consentDetails[serviceType];
+  return `By checking this box and clicking "Submit request," I agree to SafeHomeRates' Terms and Conditions and Privacy Policy, and authorize SafeHomeRates, ${details.providers}, and its marketing partners to contact me about ${details.offer} at the phone number I provided by calls and text messages, including using an automated telephone dialing system or prerecorded or artificial voice, even if my number is on a national or state Do Not Call list. Consent is not a condition of purchase and may be revoked at any time. Message and data rates may apply.`;
+}
 
 const states = [
   ["AL", "Alabama"], ["AK", "Alaska"], ["AZ", "Arizona"], ["AR", "Arkansas"], ["CA", "California"],
@@ -66,6 +83,7 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
   const navigate = useNavigate();
   const [status, setStatus] = useState<"editing" | "loading" | "success" | "error">("editing");
   const [submitError, setSubmitError] = useState("");
+  const disclosureDetails = consentDetails[serviceType];
   const {
     register,
     handleSubmit,
@@ -149,7 +167,7 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
         address: values.address,
       },
       consent: values.consent,
-      consentText,
+      consentText: getConsentText(serviceType),
       timestamp: new Date().toISOString(),
       pageUrl: window.location.href,
       ...attribution,
@@ -246,7 +264,7 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
               <input id="leadid_tcpa_disclosure" type="checkbox" {...register("consent")} className="mt-1 size-4 shrink-0 accent-[var(--cta)]" />
               <div>
                 <label htmlFor="leadid_tcpa_disclosure" className="cursor-pointer text-xs leading-5 text-muted-foreground">
-                  By checking this box, I provide my electronic signature and express written consent to be contacted by SafeHomeRates and its partners at the phone number provided, including by autodialed calls, prerecorded messages and text messages, even if my number is on a Do Not Call list. Consent is not a condition of purchase. Message/data rates may apply. See our <a className="font-semibold text-brand underline" href="/privacy">Privacy Policy</a> and <a className="font-semibold text-brand underline" href="/terms">Terms</a>.
+                  By checking this box and clicking &quot;Submit request,&quot; I agree to SafeHomeRates&apos; <a className="font-semibold text-brand underline" href="/terms">Terms and Conditions</a> and <a className="font-semibold text-brand underline" href="/privacy">Privacy Policy</a>, and authorize SafeHomeRates, {disclosureDetails.providers}, and its marketing partners to contact me about {disclosureDetails.offer} at the phone number I provided by calls and text messages, including using an automated telephone dialing system or prerecorded or artificial voice, even if my number is on a national or state Do Not Call list. Consent is not a condition of purchase and may be revoked at any time. Message and data rates may apply.
                 </label>
                 <ErrorMessage message={errors.consent?.message} />
               </div>
