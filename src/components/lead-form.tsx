@@ -9,35 +9,42 @@ import { Input } from "@/components/ui/input";
 
 export type LeadServiceType = "home-services" | "home-improvement" | "home-warranty";
 
-export type LeadServiceField = {
-  name: string;
-  label: string;
-  type: "select" | "radio" | "textarea";
-  options?: string[];
-  required?: boolean;
-  placeholder?: string;
-};
-
-export type LeadFormConfig = {
-  serviceFields: LeadServiceField[];
-};
-
 type LeadFormProps = {
   serviceType: LeadServiceType;
-  config: LeadFormConfig;
   presentation?: "section" | "hero";
 };
 
 const consentText =
-  "By clicking Submit, I provide my electronic signature and express written consent to be contacted by SafeHomeRates and its partners at the phone number and email provided, including by autodialed calls, prerecorded messages and text messages, even if my number is on a Do Not Call list. Consent is not a condition of purchase. Message/data rates may apply. See our Privacy Policy and Terms.";
+  "By checking this box, I provide my electronic signature and express written consent to be contacted by SafeHomeRates and its partners at the phone number provided, including by autodialed calls, prerecorded messages and text messages, even if my number is on a Do Not Call list. Consent is not a condition of purchase. Message/data rates may apply. See our Privacy Policy and Terms.";
+
+const states = [
+  ["AL", "Alabama"], ["AK", "Alaska"], ["AZ", "Arizona"], ["AR", "Arkansas"], ["CA", "California"],
+  ["CO", "Colorado"], ["CT", "Connecticut"], ["DE", "Delaware"], ["DC", "District of Columbia"], ["FL", "Florida"],
+  ["GA", "Georgia"], ["HI", "Hawaii"], ["ID", "Idaho"], ["IL", "Illinois"], ["IN", "Indiana"],
+  ["IA", "Iowa"], ["KS", "Kansas"], ["KY", "Kentucky"], ["LA", "Louisiana"], ["ME", "Maine"],
+  ["MD", "Maryland"], ["MA", "Massachusetts"], ["MI", "Michigan"], ["MN", "Minnesota"], ["MS", "Mississippi"],
+  ["MO", "Missouri"], ["MT", "Montana"], ["NE", "Nebraska"], ["NV", "Nevada"], ["NH", "New Hampshire"],
+  ["NJ", "New Jersey"], ["NM", "New Mexico"], ["NY", "New York"], ["NC", "North Carolina"], ["ND", "North Dakota"],
+  ["OH", "Ohio"], ["OK", "Oklahoma"], ["OR", "Oregon"], ["PA", "Pennsylvania"], ["RI", "Rhode Island"],
+  ["SC", "South Carolina"], ["SD", "South Dakota"], ["TN", "Tennessee"], ["TX", "Texas"], ["UT", "Utah"],
+  ["VT", "Vermont"], ["VA", "Virginia"], ["WA", "Washington"], ["WV", "West Virginia"], ["WI", "Wisconsin"],
+  ["WY", "Wyoming"],
+] as const;
+const stateCodes = new Set(states.map(([code]) => code));
 
 const baseSchema = z.object({
-  serviceDetails: z.record(z.string(), z.string()),
-  zipCode: z.string().regex(/^\d{5}$/, "Enter a valid 5-digit ZIP code."),
   firstName: z.string().trim().min(1, "Enter your first name."),
   lastName: z.string().trim().min(1, "Enter your last name."),
-  email: z.string().trim().email("Enter a valid email address."),
   phone: z.string().refine((value) => /^\d{10}$/.test(value.replace(/\D/g, "")), "Enter a valid 10-digit phone number."),
+  dateOfBirth: z.string().refine((value) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+    const date = new Date(`${value}T00:00:00.000Z`);
+    return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value && value <= new Date().toISOString().slice(0, 10);
+  }, "Enter a valid date of birth."),
+  state: z.string().refine((value) => stateCodes.has(value as (typeof states)[number][0]), "Choose a state."),
+  zipCode: z.string().regex(/^\d{5}$/, "Enter a valid 5-digit ZIP code."),
+  city: z.string().trim().min(1, "Enter your city."),
+  address: z.string().trim().min(1, "Enter your street address."),
   consent: z.boolean().refine((value) => value, "Consent is required to submit your request."),
   website: z.string(),
 });
@@ -55,21 +62,10 @@ function ErrorMessage({ message }: { message?: string | undefined }) {
   return message ? <p className="mt-1 text-sm text-destructive" role="alert">{message}</p> : null;
 }
 
-export function LeadForm({ serviceType, config, presentation = "section" }: LeadFormProps) {
+export function LeadForm({ serviceType, presentation = "section" }: LeadFormProps) {
   const navigate = useNavigate();
   const [status, setStatus] = useState<"editing" | "loading" | "success" | "error">("editing");
   const [submitError, setSubmitError] = useState("");
-  const schema = baseSchema.superRefine((values, context) => {
-    for (const field of config.serviceFields) {
-      if (field.required !== false && !values.serviceDetails[field.name]?.trim()) {
-        context.addIssue({
-          code: "custom",
-          path: ["serviceDetails", field.name],
-          message: `Complete ${field.label.toLowerCase()}.`,
-        });
-      }
-    }
-  });
   const {
     register,
     handleSubmit,
@@ -77,14 +73,16 @@ export function LeadForm({ serviceType, config, presentation = "section" }: Lead
     watch,
     formState: { errors },
   } = useForm<LeadFormValues>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(baseSchema),
     defaultValues: {
-      serviceDetails: {},
-      zipCode: "",
       firstName: "",
       lastName: "",
-      email: "",
       phone: "",
+      dateOfBirth: "",
+      state: "",
+      zipCode: "",
+      city: "",
+      address: "",
       consent: false,
       website: "",
     },
@@ -118,7 +116,6 @@ export function LeadForm({ serviceType, config, presentation = "section" }: Lead
     const attribution = Object.fromEntries(
       ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid"].map((key) => [key, query.get(key) ?? ""]),
     );
-    const serviceAnswers = values.serviceDetails;
     const leadIdToken =
       (document.getElementById("leadid_token") as HTMLInputElement | null)?.value ?? "";
     const trustedFormCertUrl =
@@ -128,20 +125,28 @@ export function LeadForm({ serviceType, config, presentation = "section" }: Lead
       trustedFormCertUrl,
       serviceType,
       answers: {
-        ...serviceAnswers,
-        zipCode: values.zipCode,
+        dateOfBirth: values.dateOfBirth,
+        state: values.state,
+        city: values.city,
+        address: values.address,
       },
-      serviceDetails: serviceAnswers,
       zipCode: values.zipCode,
       firstName: values.firstName,
       lastName: values.lastName,
-      email: values.email,
       phone: values.phone,
+      dateOfBirth: values.dateOfBirth,
+      state: values.state,
+      city: values.city,
+      address: values.address,
       contact: {
         firstName: values.firstName,
         lastName: values.lastName,
-        email: values.email,
         phone: values.phone,
+        dateOfBirth: values.dateOfBirth,
+        state: values.state,
+        zipCode: values.zipCode,
+        city: values.city,
+        address: values.address,
       },
       consent: values.consent,
       consentText,
@@ -178,48 +183,6 @@ export function LeadForm({ serviceType, config, presentation = "section" }: Lead
         </div>
 
         <form onSubmit={handleSubmit(submitLead)} noValidate className={presentation === "hero" ? "rounded-xl border border-border bg-background p-5 shadow-2xl shadow-black/20 sm:p-7" : "border border-border bg-background p-5 sm:p-8"}>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {config.serviceFields.map((field) => {
-              const fieldError = errors.serviceDetails?.[field.name]?.message;
-              return field.type === "radio" ? (
-                <fieldset key={field.name} className="sm:col-span-2">
-                  <legend className={labelClass}>{field.label}{field.required === false ? " (optional)" : ""}</legend>
-                  <div className="grid gap-2 sm:grid-cols-2">
-                    {field.options?.map((option) => (
-                      <label key={option} className="flex min-h-10 cursor-pointer items-center gap-3 border border-border px-3 py-2 text-sm hover:bg-muted">
-                        <input type="radio" value={option} {...register(`serviceDetails.${field.name}`)} className="accent-[var(--cta)]" />
-                        {option}
-                      </label>
-                    ))}
-                  </div>
-                  <ErrorMessage message={fieldError} />
-                </fieldset>
-              ) : field.type === "textarea" ? (
-                <div key={field.name} className="sm:col-span-2">
-                  <label className={labelClass} htmlFor={`service-${field.name}`}>{field.label}{field.required === false ? " (optional)" : ""}</label>
-                  <textarea
-                    id={`service-${field.name}`}
-                    rows={2}
-                    maxLength={500}
-                    placeholder={field.placeholder ?? "Add a few details"}
-                    className={controlClass}
-                    {...register(`serviceDetails.${field.name}`)}
-                  />
-                  <ErrorMessage message={fieldError} />
-                </div>
-              ) : (
-                <div key={field.name}>
-                  <label className={labelClass} htmlFor={`service-${field.name}`}>{field.label}{field.required === false ? " (optional)" : ""}</label>
-                  <select id={`service-${field.name}`} className={controlClass} defaultValue="" {...register(`serviceDetails.${field.name}`)}>
-                    <option value="" disabled>{field.placeholder ?? "Select an option"}</option>
-                    {field.options?.map((option) => <option key={option} value={option}>{option}</option>)}
-                  </select>
-                  <ErrorMessage message={fieldError} />
-                </div>
-              );
-            })}
-          </div>
-
           <div className="mt-5 border-t border-border pt-5">
             <h3 className="mb-3 text-sm font-extrabold text-primary">Your contact details</h3>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -232,11 +195,6 @@ export function LeadForm({ serviceType, config, presentation = "section" }: Lead
                 <label className={labelClass} htmlFor="lastName">Last name</label>
                 <Input id="lastName" autoComplete="family-name" {...register("lastName")} />
                 <ErrorMessage message={errors.lastName?.message} />
-              </div>
-              <div>
-                <label className={labelClass} htmlFor="email">Email</label>
-                <Input id="email" type="email" autoComplete="email" {...register("email")} />
-                <ErrorMessage message={errors.email?.message} />
               </div>
               <div>
                 <label className={labelClass} htmlFor="phone">Phone number</label>
@@ -253,6 +211,29 @@ export function LeadForm({ serviceType, config, presentation = "section" }: Lead
                 <ErrorMessage message={errors.phone?.message} />
               </div>
               <div>
+                <label className={labelClass} htmlFor="dateOfBirth">Date of birth</label>
+                <Input id="dateOfBirth" type="date" autoComplete="bday" max={new Date().toISOString().slice(0, 10)} {...register("dateOfBirth")} />
+                <ErrorMessage message={errors.dateOfBirth?.message} />
+              </div>
+              <div className="sm:col-span-2">
+                <label className={labelClass} htmlFor="address">Street address</label>
+                <Input id="address" autoComplete="street-address" {...register("address")} />
+                <ErrorMessage message={errors.address?.message} />
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="city">City</label>
+                <Input id="city" autoComplete="address-level2" {...register("city")} />
+                <ErrorMessage message={errors.city?.message} />
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="state">State</label>
+                <select id="state" autoComplete="address-level1" className={controlClass} defaultValue="" {...register("state")}>
+                  <option value="" disabled>Select a state</option>
+                  {states.map(([code, name]) => <option key={code} value={code}>{name}</option>)}
+                </select>
+                <ErrorMessage message={errors.state?.message} />
+              </div>
+              <div>
                 <label className={labelClass} htmlFor="zipCode">ZIP code</label>
                 <Input id="zipCode" inputMode="numeric" autoComplete="postal-code" maxLength={5} placeholder="e.g. 10001" {...register("zipCode")} />
                 <ErrorMessage message={errors.zipCode?.message} />
@@ -261,13 +242,15 @@ export function LeadForm({ serviceType, config, presentation = "section" }: Lead
           </div>
 
           <div className="mt-5 border-t border-border pt-4">
-            <label className="flex cursor-pointer items-start gap-3 text-xs leading-5 text-muted-foreground">
-              <input type="checkbox" {...register("consent")} className="mt-1 size-4 shrink-0 accent-[var(--cta)]" />
-              <span>
-                By clicking Submit, I provide my electronic signature and express written consent to be contacted by SafeHomeRates and its partners at the phone number and email provided, including by autodialed calls, prerecorded messages and text messages, even if my number is on a Do Not Call list. Consent is not a condition of purchase. Message/data rates may apply. See our <a className="font-semibold text-brand underline" href="/privacy">Privacy Policy</a> and <a className="font-semibold text-brand underline" href="/terms">Terms</a>.
-              </span>
-            </label>
-            <ErrorMessage message={errors.consent?.message} />
+            <div className="flex items-start gap-3">
+              <input id="leadid_tcpa_disclosure" type="checkbox" {...register("consent")} className="mt-1 size-4 shrink-0 accent-[var(--cta)]" />
+              <div>
+                <label htmlFor="leadid_tcpa_disclosure" className="cursor-pointer text-xs leading-5 text-muted-foreground">
+                  By checking this box, I provide my electronic signature and express written consent to be contacted by SafeHomeRates and its partners at the phone number provided, including by autodialed calls, prerecorded messages and text messages, even if my number is on a Do Not Call list. Consent is not a condition of purchase. Message/data rates may apply. See our <a className="font-semibold text-brand underline" href="/privacy">Privacy Policy</a> and <a className="font-semibold text-brand underline" href="/terms">Terms</a>.
+                </label>
+                <ErrorMessage message={errors.consent?.message} />
+              </div>
+            </div>
             <input
               type="text"
               tabIndex={-1}

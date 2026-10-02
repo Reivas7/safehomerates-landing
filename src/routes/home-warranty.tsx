@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BadgeCheck, Check, ChevronDown, Flame, Lock, Quote, ShieldCheck, Star, Wind, Wrench, Zap, Refrigerator, Handshake, Layers } from "lucide-react";
-import { LeadForm, type LeadFormConfig } from "@/components/lead-form";
+import { LeadForm } from "@/components/lead-form";
 
 export const Route = createFileRoute("/home-warranty")({
   head: () => ({
@@ -17,16 +17,6 @@ export const Route = createFileRoute("/home-warranty")({
   }),
   component: HomeWarrantyPage,
 });
-
-/* ---- Form config: unchanged, so fields and wizard logic are preserved ---- */
-const formConfig: LeadFormConfig = {
-  serviceFields: [
-    { name: "coverageInterest", label: "What coverage interests you?", type: "radio", options: ["Appliances", "Systems", "Both"] },
-    { name: "homeAge", label: "How old is your home?", type: "select", options: ["Under 5 years", "5-10 years", "11-20 years", "Over 20 years", "Not sure"] },
-    { name: "currentlyCovered", label: "Is your home currently covered?", type: "radio", options: ["Yes", "No"] },
-    { name: "homeType", label: "What type of home do you have?", type: "select", options: ["Single-family", "Condo", "Townhome", "Multi-family", "Other"] },
-  ],
-};
 
 const benefits = [
   { title: "Focus on what matters", description: "Choose appliance coverage, systems coverage or both." },
@@ -138,7 +128,7 @@ function HomeWarrantyPage() {
 
           <div id="quote-form" className="scroll-mt-24 rounded-2xl border border-slate-100 bg-white p-6 text-slate-900 shadow-2xl transition-all duration-300 hover:shadow-blue-500/10 sm:p-8
             [&_input]:focus:ring-2 [&_input]:focus:ring-blue-500 [&_select]:focus:ring-2 [&_select]:focus:ring-blue-500">
-            <LeadForm serviceType="home-warranty" config={formConfig} presentation="hero" />
+            <LeadForm serviceType="home-warranty" presentation="hero" />
             <ul className="mt-6 flex flex-wrap gap-2 border-t border-slate-100 pt-5">
               {trustPills.map(({ icon: Icon, text }) => (
                 <li key={text} className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700">

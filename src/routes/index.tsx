@@ -125,12 +125,6 @@ function HomePage() {
             <LeadForm
               serviceType="home-services"
               presentation="hero"
-              config={{
-                serviceFields: [
-                  { name: "service", label: "What can we help with?", type: "select", options: ["Plumbing", "Electrical", "HVAC", "Roofing", "Windows", "Remodeling", "Home warranty", "Other"] },
-                  { name: "timing", label: "When are you looking to get started?", type: "radio", options: ["As soon as possible", "This month", "Just researching"] },
-                ],
-              }}
             />
           </div>
         </div>

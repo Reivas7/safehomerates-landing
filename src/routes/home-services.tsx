@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BadgeCheck, Clock, Droplets, Wrench, Zap, Wind, Bug, Sparkles, Leaf, ShieldCheck, Star, Quote, ChevronDown } from "lucide-react";
-import { LeadForm, type LeadFormConfig } from "@/components/lead-form";
+import { LeadForm } from "@/components/lead-form";
 
 export const Route = createFileRoute("/home-services")({
   head: () => ({
@@ -17,15 +17,6 @@ export const Route = createFileRoute("/home-services")({
   }),
   component: HomeServicesPage,
 });
-
-/* ---- Form config: unchanged, so wizard logic is preserved ---- */
-const formConfig: LeadFormConfig = {
-  serviceFields: [
-    { name: "service", label: "What service do you need?", type: "select", options: ["Plumbing", "Electrical", "HVAC", "Pest Control", "Cleaning", "Landscaping", "Other"] },
-    { name: "urgency", label: "How soon do you need service?", type: "radio", options: ["ASAP", "This week", "This month", "Just researching"] },
-    { name: "description", label: "Briefly describe the work", type: "textarea", placeholder: "What needs attention?", required: true },
-  ],
-};
 
 const HERO_IMG = "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1600&q=80";
 const CTA_IMG = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80";
@@ -117,7 +108,7 @@ function HomeServicesPage() {
 
           {/* Floating wizard card */}
           <div id="quote-form" className="scroll-mt-24 rounded-2xl border border-slate-200/80 bg-white p-5 text-slate-900 shadow-2xl ring-1 ring-black/5 transition-all duration-300 hover:shadow-emerald-500/10 sm:p-7">
-            <LeadForm serviceType="home-services" config={formConfig} presentation="hero" />
+            <LeadForm serviceType="home-services" presentation="hero" />
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { BadgeCheck, ChevronDown, Fan, Hammer, Home, PanelTop, ShieldCheck, Star, Sun, Utensils, FileCheck2 } from "lucide-react";
-import { LeadForm, type LeadFormConfig } from "@/components/lead-form";
+import { LeadForm } from "@/components/lead-form";
 
 export const Route = createFileRoute("/home-improvement")({
   head: () => ({
@@ -18,15 +18,6 @@ export const Route = createFileRoute("/home-improvement")({
   }),
   component: HomeImprovementPage,
 });
-
-/* ---- Form config: unchanged, so fields and step logic are preserved ---- */
-const formConfig: LeadFormConfig = {
-  serviceFields: [
-    { name: "projectType", label: "What project are you planning?", type: "select", options: ["Roofing", "Windows", "Kitchen Remodel", "Bathroom Remodel", "Flooring", "Siding", "Solar", "Other"] },
-    { name: "budget", label: "Estimated budget range", type: "select", options: ["Under $5,000", "$5,000-$14,999", "$15,000-$29,999", "$30,000-$49,999", "$50,000 or more", "Not sure yet"] },
-    { name: "timeline", label: "When would you like to start?", type: "radio", options: ["As soon as possible", "Within 1-3 months", "Within 3-6 months", "Just planning"] },
-  ],
-};
 
 const benefits = [
   { title: "Scope your project", description: "Choose a project category so your request starts with the right context." },
@@ -140,7 +131,7 @@ function HomeImprovementPage() {
           {/* Floating form card */}
           <div id="quote-form" className="scroll-mt-24 rounded-2xl border border-slate-100 bg-white p-6 text-slate-900 shadow-2xl transition-all duration-300 hover:shadow-amber-500/10 sm:p-8
             [&_input]:focus:ring-2 [&_input]:focus:ring-amber-500 [&_select]:focus:ring-2 [&_select]:focus:ring-amber-500 [&_textarea]:focus:ring-2 [&_textarea]:focus:ring-amber-500">
-            <LeadForm serviceType="home-improvement" config={formConfig} presentation="hero" />
+            <LeadForm serviceType="home-improvement" presentation="hero" />
           </div>
         </div>
       </section>
