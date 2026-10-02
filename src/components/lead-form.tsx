@@ -112,14 +112,23 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
   // LeadiD: load the campaign script once per page, after the form is in the DOM.
   useEffect(() => {
     const campaignKey = import.meta.env["VITE_JORNAYA_CAMPAIGN_KEY"];
-    if (!campaignKey) return;
-    if (document.getElementById("LeadiDscript_campaign")) return;
-    const s = document.createElement("script");
-    s.id = "LeadiDscript_campaign";
-    s.type = "text/javascript";
-    s.async = true;
-    s.src = `//create.lidstatic.com/campaign/${campaignKey}.js?snippet_version=2`;
-    document.body.appendChild(s);
+    if (campaignKey && !document.getElementById("LeadiDscript_campaign")) {
+      const jornayaScript = document.createElement("script");
+      jornayaScript.id = "LeadiDscript_campaign";
+      jornayaScript.type = "text/javascript";
+      jornayaScript.async = true;
+      jornayaScript.src = `//create.lidstatic.com/campaign/${campaignKey}.js?snippet_version=2`;
+      document.body.appendChild(jornayaScript);
+    }
+
+    if (!document.getElementById("trustedform_script")) {
+      const trustedFormScript = document.createElement("script");
+      trustedFormScript.id = "trustedform_script";
+      trustedFormScript.type = "text/javascript";
+      trustedFormScript.async = true;
+      trustedFormScript.src = `https://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&use_tagged_consent=true&l=${Date.now()}${Math.random()}`;
+      document.body.appendChild(trustedFormScript);
+    }
   }, []);
 
   async function submitLead(values: LeadFormValues) {
@@ -200,7 +209,7 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
           <h2 className={presentation === "hero" ? "mt-2 text-2xl font-extrabold text-primary" : "mt-2 text-3xl font-extrabold text-primary"}>{presentation === "hero" ? "What can we help with?" : "Tell us about your home"}</h2>
         </div>
 
-        <form onSubmit={handleSubmit(submitLead)} noValidate className={presentation === "hero" ? "rounded-xl border border-border bg-background p-5 shadow-2xl shadow-black/20 sm:p-7" : "border border-border bg-background p-5 sm:p-8"}>
+        <form data-tf-element-role="offer" onSubmit={handleSubmit(submitLead)} noValidate className={presentation === "hero" ? "rounded-xl border border-border bg-background p-5 shadow-2xl shadow-black/20 sm:p-7" : "border border-border bg-background p-5 sm:p-8"}>
           <div className="mt-5 border-t border-border pt-5">
             <h3 className="mb-3 text-sm font-extrabold text-primary">Your contact details</h3>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -261,10 +270,10 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
 
           <div className="mt-5 border-t border-border pt-4">
             <div className="flex items-start gap-3">
-              <input id="leadid_tcpa_disclosure" type="checkbox" {...register("consent")} className="mt-1 size-4 shrink-0 accent-[var(--cta)]" />
+              <input id="leadid_tcpa_disclosure" type="checkbox" data-tf-element-role="consent-opt-in" {...register("consent")} className="mt-1 size-4 shrink-0 accent-[var(--cta)]" />
               <div>
-                <label htmlFor="leadid_tcpa_disclosure" className="cursor-pointer text-xs leading-5 text-muted-foreground">
-                  By checking this box and clicking &quot;Submit request,&quot; I agree to SafeHomeRates&apos; <a className="font-semibold text-brand underline" href="/terms">Terms and Conditions</a> and <a className="font-semibold text-brand underline" href="/privacy">Privacy Policy</a>, and authorize SafeHomeRates, {disclosureDetails.providers}, and its marketing partners to contact me about {disclosureDetails.offer} at the phone number I provided by calls and text messages, including using an automated telephone dialing system or prerecorded or artificial voice, even if my number is on a national or state Do Not Call list. Consent is not a condition of purchase and may be revoked at any time. Message and data rates may apply.
+                <label htmlFor="leadid_tcpa_disclosure" data-tf-element-role="consent-language" className="cursor-pointer text-xs leading-5 text-muted-foreground">
+                  By checking this box and clicking &quot;Submit request,&quot; I agree to SafeHomeRates&apos; <a className="font-semibold text-brand underline" href="/terms">Terms and Conditions</a> and <a className="font-semibold text-brand underline" href="/privacy">Privacy Policy</a>, and authorize SafeHomeRates, {disclosureDetails.providers}, and its marketing partners to contact me about {disclosureDetails.offer} <span data-tf-element-role="contact-method">at the phone number I provided by calls and text messages</span>, including using an automated telephone dialing system or prerecorded or artificial voice, <span data-tf-element-role="consent-grantor-waived-dnc">even if my number is on a national or state Do Not Call list</span>. <span data-tf-element-role="consent-grantor-waived-purchase-condition">Consent is not a condition of purchase</span> and may be revoked at any time. Message and data rates may apply.
                 </label>
                 <ErrorMessage message={errors.consent?.message} />
               </div>
@@ -278,10 +287,11 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
               {...register("website")}
             />
             <input id="leadid_token" name="universal_leadid" type="hidden" defaultValue="" />
+            <noscript><img src="https://api.trustedform.com/ns.gif" alt="" /></noscript>
             {submitError && <p className="mt-4 text-sm text-destructive" role="alert">{submitError}</p>}
             <div className="mt-4 flex justify-end">
-              <Button type="submit" variant="quote" disabled={status === "loading"} className="w-full sm:w-auto">
-                {status === "loading" ? "Submitting..." : "Submit request"}
+              <Button type="submit" data-tf-element-role="submit" variant="quote" disabled={status === "loading"} className="w-full sm:w-auto">
+                <span data-tf-element-role="submit-text">{status === "loading" ? "Submitting..." : "Submit request"}</span>
                 {status !== "loading" && <ArrowRight size={17} />}
               </Button>
             </div>
