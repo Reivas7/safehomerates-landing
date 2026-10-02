@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
@@ -93,6 +93,19 @@ export function LeadForm({ serviceType, config, presentation = "section" }: Lead
 
   const phoneValue = watch("phone");
 
+  // LeadiD: load the campaign script once per page, after the form is in the DOM.
+  useEffect(() => {
+    const campaignKey = import.meta.env["VITE_JORNAYA_CAMPAIGN_KEY"];
+    if (!campaignKey) return;
+    if (document.getElementById("LeadiDscript_campaign")) return;
+    const s = document.createElement("script");
+    s.id = "LeadiDscript_campaign";
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = `//create.lidstatic.com/campaign/${campaignKey}.js?snippet_version=2`;
+    document.body.appendChild(s);
+  }, []);
+
   async function submitLead(values: LeadFormValues) {
     setSubmitError("");
     if (values.website) {
@@ -106,7 +119,13 @@ export function LeadForm({ serviceType, config, presentation = "section" }: Lead
       ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid"].map((key) => [key, query.get(key) ?? ""]),
     );
     const serviceAnswers = values.serviceDetails;
+    const leadIdToken =
+      (document.getElementById("leadid_token") as HTMLInputElement | null)?.value ?? "";
+    const trustedFormCertUrl =
+      document.querySelector<HTMLInputElement>("input[name='xxTrustedFormCertUrl']")?.value.trim() ?? "";
     const payload = {
+      universal_leadid: leadIdToken,
+      trustedFormCertUrl,
       serviceType,
       answers: {
         ...serviceAnswers,
@@ -257,6 +276,7 @@ export function LeadForm({ serviceType, config, presentation = "section" }: Lead
               className="absolute -left-[10000px] h-px w-px opacity-0"
               {...register("website")}
             />
+            <input id="leadid_token" name="universal_leadid" type="hidden" defaultValue="" />
             {submitError && <p className="mt-4 text-sm text-destructive" role="alert">{submitError}</p>}
             <div className="mt-4 flex justify-end">
               <Button type="submit" variant="quote" disabled={status === "loading"} className="w-full sm:w-auto">

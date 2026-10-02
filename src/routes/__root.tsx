@@ -100,6 +100,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const jornayaKey = import.meta.env["VITE_JORNAYA_CAMPAIGN_KEY"];
+  const jornayaLac = import.meta.env["VITE_JORNAYA_LAC"];
   return (
     <html lang="en">
       <head>
@@ -107,6 +109,14 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        {jornayaLac && jornayaKey && (
+          <noscript>
+            <img
+              alt=""
+              src={`//create.leadid.com/noscript.gif?lac=${jornayaLac}&lck=${jornayaKey}&snippet_version=2`}
+            />
+          </noscript>
+        )}
         <Scripts />
       </body>
     </html>

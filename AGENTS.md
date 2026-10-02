@@ -12,4 +12,4 @@
 ## Project architecture
 
 - Use TanStack Router file routes with shared navigation definitions in `src/lib/site-config.ts`; this preserves framework-native type safety while centralizing all site links.
-- Submit future lead forms directly to the external `VITE_API_URL`; this project intentionally has no built-in backend or database.
+- The frontend submits lead forms to the external `VITE_API_URL`. The standalone `backend/` service owns `/api/leads` and MongoDB access; never connect to MongoDB from the browser.
