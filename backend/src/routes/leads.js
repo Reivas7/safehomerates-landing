@@ -30,7 +30,6 @@ export function createLeadsRouter(collection) {
 
       return res.status(201).json({ success: true, id: result.insertedId });
     } catch (error) {
-      if (error?.code === 11000) return res.status(409).json({ error: "This LeadiD has already been submitted." });
       return next(error);
     }
   });

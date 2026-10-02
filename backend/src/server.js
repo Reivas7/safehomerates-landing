@@ -24,7 +24,15 @@ async function start() {
 
   const database = mongoClient.db(databaseName);
   const leads = database.collection(collectionName);
-  await leads.createIndex({ leadId: 1 }, { unique: true, name: "unique_leadid" });
+  const leadIdIndexes = (await leads.indexes()).filter(
+    (index) => Object.keys(index.key ?? {}).length === 1 && index.key.leadId === 1,
+  );
+  for (const index of leadIdIndexes) {
+    if (index.unique) await leads.dropIndex(index.name);
+  }
+  if (!leadIdIndexes.some((index) => !index.unique)) {
+    await leads.createIndex({ leadId: 1 }, { name: "leadid_lookup" });
+  }
 
   const app = express();
   app.disable("x-powered-by");
