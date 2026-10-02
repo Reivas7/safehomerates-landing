@@ -138,13 +138,19 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
       return;
     }
 
+    const leadIdInput = document.getElementById("leadid_token") as HTMLInputElement | null;
+    const leadIdToken = leadIdInput?.value.trim();
+    if (!leadIdToken) {
+      setStatus("error");
+      setSubmitError(" Form Submission is not ready. Please wait a moment and try again.");
+      return;
+    }
+
     setStatus("loading");
     const query = new URLSearchParams(window.location.search);
     const attribution = Object.fromEntries(
       ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid"].map((key) => [key, query.get(key) ?? ""]),
     );
-    const leadIdToken =
-      (document.getElementById("leadid_token") as HTMLInputElement | null)?.value ?? "";
     const trustedFormCertUrl =
       document.querySelector<HTMLInputElement>("input[name='xxTrustedFormCertUrl']")?.value.trim() ?? "";
     const payload = {
