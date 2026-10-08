@@ -260,10 +260,13 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
               </div>
               <div>
                 <label className={labelClass} htmlFor="state">State</label>
-                <select id="state" autoComplete="address-level1" className={controlClass} defaultValue="" {...register("state")}>
-                  <option value="" disabled>Select a state</option>
-                  {states.map(([code, name]) => <option key={code} value={code}>{name}</option>)}
-                </select>
+                <Input
+                  id="state"
+                  autoComplete="address-level1"
+                  placeholder="e.g. CA"
+                  maxLength={2}
+                  {...register("state", { setValueAs: (value: string) => value.toUpperCase().trim() })}
+                />
                 <ErrorMessage message={errors.state?.message} />
               </div>
               <div>
