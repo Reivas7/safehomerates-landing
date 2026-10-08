@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { LeadValidationError, validateLead } from "../lead-validation.js";
 
-export function createLeadsRouter(collection) {
+export function createLeadsRouter(collection, writeLeadToGoogleSheets = null) {
   const router = Router();
 
   router.post("/", async (req, res, next) => {
@@ -27,6 +27,13 @@ export function createLeadsRouter(collection) {
           userAgent: req.get("user-agent") ?? "",
         },
       });
+
+      if (writeLeadToGoogleSheets) {
+        await writeLeadToGoogleSheets(lead, {
+          ip: req.ip,
+          userAgent: req.get("user-agent") ?? "",
+        });
+      }
 
       return res.status(201).json({ success: true, id: result.insertedId });
     } catch (error) {

@@ -4,6 +4,7 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import { MongoClient } from "mongodb";
+import { createGoogleSheetsWriter } from "./google-sheets.js";
 import { createLeadsRouter } from "./routes/leads.js";
 
 const port = Number(process.env.PORT ?? 10000);
@@ -24,6 +25,10 @@ async function start() {
 
   const database = mongoClient.db(databaseName);
   const leads = database.collection(collectionName);
+  const writeLeadToGoogleSheets = createGoogleSheetsWriter({
+    webhookUrl: process.env.GOOGLE_SHEETS_WEBHOOK_URL,
+    sharedSecret: process.env.GOOGLE_SHEETS_SHARED_SECRET,
+  });
   const leadIdIndexes = (await leads.indexes()).filter(
     (index) => Object.keys(index.key ?? {}).length === 1 && index.key.leadId === 1,
   );
@@ -58,7 +63,7 @@ async function start() {
   });
 
   app.use("/api/leads", rateLimit({ windowMs: 15 * 60 * 1000, limit: 30, standardHeaders: "draft-7", legacyHeaders: false }));
-  app.use("/api/leads", createLeadsRouter(leads));
+  app.use("/api/leads", createLeadsRouter(leads, writeLeadToGoogleSheets));
   app.use((error, _req, res, _next) => {
     if (error?.type === "entity.parse.failed") return res.status(400).json({ error: "Invalid JSON body." });
     if (error?.message === "Origin is not allowed by CORS.") return res.status(403).json({ error: "Origin is not allowed." });
