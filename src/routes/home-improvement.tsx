@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { BadgeCheck, ChevronDown, Fan, Hammer, Home, MapPin, PanelTop, Phone, ShieldCheck, Sun, Utensils, FileCheck2 } from "lucide-react";
+import { ChevronDown, Fan, Hammer, Home, MapPin, PanelTop, Phone, Sun, Utensils, FileCheck2 } from "lucide-react";
 import { CallBox } from "@/components/call-cta";
 import { LeadForm } from "@/components/lead-form";
 import { callNumber } from "@/lib/site-config";
@@ -43,11 +43,11 @@ const projects = [
   { icon: Hammer, label: "Flooring & More", tag: "Something else?", src: img("photo-1581858726788-75bc0f6a952d") },
 ];
 
-// Claims below were requested for the design. Only publish them if you can substantiate them.
+// Only claims the site can back up. Don't add licensing, vetting or volume claims without proof.
 const trust = [
-  { icon: ShieldCheck, title: "Licensed & Insured Pros", text: "Providers are asked about their credentials." },
-  { icon: FileCheck2, title: "Free No-Obligation Quotes", text: "Requesting options never commits you to hire." },
-  { icon: BadgeCheck, title: "50,000+ Projects Matched", text: "Homeowners connected with providers." },
+  { icon: MapPin, title: "Local Home Service Pros", text: "Talk to independent providers who serve your area." },
+  { icon: FileCheck2, title: "Free to Compare", text: "Calling or sending a request never commits you to hire." },
+  { icon: Phone, title: "One Call to Start", text: "Tell us about your project and we'll help connect you." },
 ];
 
 /** Reusable animated progress bar. Wire `step`/`total` to your wizard's state (e.g. step 2 of 3). */

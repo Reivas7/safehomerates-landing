@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
       { title: "Compare Free Home Quotes | SafeHomeRates" },
       { name: "description", content: "Compare free quotes for home services, improvement projects and home warranty plans with SafeHomeRates." },
       { property: "og:title", content: "Compare Free Home Quotes | SafeHomeRates" },
-      { property: "og:description", content: "Tell us what your home needs, get matched with vetted providers and compare your options for free." },
+      { property: "og:description", content: "Tell us what your home needs, connect with independent local providers and compare your options for free." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/")({
 
 const categories = [
   { title: "Home Services", description: "Repairs, maintenance and everyday work from independent local providers.", icon: Wrench, to: "/home-services" as const, link: "Explore home services", tone: "bg-blue-50 text-blue-600" },
-  { title: "Home Improvement", description: "Plan renovations and upgrades with project-specific estimates.", icon: House, to: "/home-improvement" as const, link: "Explore home projects", tone: "bg-amber-50 text-amber-600" },
+  { title: "Home Improvement", description: "Plan renovations and upgrades and talk to local pros about your project.", icon: House, to: "/home-improvement" as const, link: "Explore home projects", tone: "bg-amber-50 text-amber-600" },
   { title: "Home Warranty", description: "Explore options for eligible repairs to home systems and appliances.", icon: ShieldCheck, to: "/home-warranty" as const, link: "Explore coverage", tone: "bg-emerald-50 text-emerald-600" },
   { title: "Roofing & HVAC", description: "Two of the most requested projects. Start with a few quick details.", icon: ThermometerSun, to: "/home-improvement" as const, link: "Start a request", tone: "bg-rose-50 text-rose-600" },
 ];
@@ -53,7 +53,7 @@ const steps = [
 const faqs = [
   { question: "Is SafeHomeRates free to use?", answer: "Yes. Requesting and comparing quotes through SafeHomeRates is free, and there is no obligation to hire or purchase." },
   { question: "How does the matching process work?", answer: "You tell us what you need. We use those details to connect you with providers that may serve your area and fit your request." },
-  { question: "Are the service providers vetted?", answer: "We work with provider networks that review participating professionals. You should still review credentials, references and terms before making a decision." },
+  { question: "Who are the service providers?", answer: "Providers are independent businesses, not SafeHomeRates employees. Check each provider's licensing, insurance, references and terms before making a decision." },
   { question: "Will I be required to accept a quote?", answer: "No. You are free to compare your options and decide whether any provider is right for you." },
   { question: "What types of home projects can I request quotes for?", answer: "Common requests include plumbing, HVAC, roofing, windows, remodeling and home warranty coverage, among many others." },
 ];

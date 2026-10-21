@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BadgeCheck, Clock, Droplets, Wrench, Zap, Wind, Bug, Sparkles, Leaf, ShieldCheck, Star, Quote, ChevronDown } from "lucide-react";
+import { BadgeCheck, Clock, Droplets, Wrench, Zap, Wind, Bug, Sparkles, Leaf, ShieldCheck, ChevronDown } from "lucide-react";
 import { CallBox } from "@/components/call-cta";
 import { LeadForm } from "@/components/lead-form";
 
@@ -43,28 +43,11 @@ const trust = [
   { icon: Clock, text: "Options at your pace" },
 ];
 
-const testimonials = [
-  { name: "Dana R.", role: "Homeowner", quote: "I described a leaking water heater in two sentences and had someone reach out the same afternoon." },
-  { name: "Marcus T.", role: "Homeowner", quote: "The short form made it easy. I compared a few options and picked the one that fit my schedule." },
-  { name: "Priya S.", role: "Landlord", quote: "Handy for finding help across a few properties without calling around all day." },
-];
-// NOTE: replace the testimonials above with real, verifiable customer feedback before launch.
-
 const faqs = [
   { question: "Does it cost anything to request options?", answer: "No. Sending a request through SafeHomeRates is free, and you are not required to hire a provider." },
   { question: "Which home services can I ask about?", answer: "You can request plumbing, electrical, HVAC, pest control, cleaning, landscaping or another home service." },
   { question: "When will a provider contact me?", answer: "Availability varies by service and location. Participating providers may contact you using the details you submit." },
 ];
-
-function Stars() {
-  return (
-    <div className="flex gap-0.5" aria-label="5 out of 5 stars">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} size={18} className="fill-amber-400 text-amber-400" aria-hidden="true" />
-      ))}
-    </div>
-  );
-}
 
 function Pill({ children }: { children: React.ReactNode }) {
   return (
@@ -94,10 +77,6 @@ function HomeServicesPage() {
             <p className="mt-5 max-w-xl text-lg leading-8 text-slate-300">
               Tell us what you need and where you need it. Share a few details to help participating providers understand the job before they reach out.
             </p>
-            <div className="mt-6 flex items-center gap-3">
-              <Stars />
-              <span className="text-sm font-semibold text-slate-200">Rated by homeowners like you</span>
-            </div>
             <ul className="mt-7 flex flex-wrap gap-3">
               {trust.map(({ icon: Icon, text }) => (
                 <li key={text} className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-2 text-sm font-semibold text-white backdrop-blur transition duration-200 hover:-translate-y-1 hover:bg-white/15">
@@ -149,8 +128,7 @@ function HomeServicesPage() {
             <img src={CTA_IMG} alt="Bright, comfortable living room in a well-kept home" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-900/30 to-transparent" />
             <div className="absolute bottom-0 p-6 text-white">
-              <Stars />
-              <p className="mt-2 text-xl font-extrabold">A well-kept home starts with one request.</p>
+              <p className="text-xl font-extrabold">A well-kept home starts with one request.</p>
             </div>
           </div>
           <div className="space-y-4">
@@ -177,25 +155,6 @@ function HomeServicesPage() {
           <h2 className="text-center text-3xl font-extrabold text-slate-900">Prefer not to call? Send your request online</h2>
           <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white p-5 text-slate-900 shadow-2xl ring-1 ring-black/5 sm:p-7">
             <LeadForm serviceType="home-services" presentation="hero" />
-          </div>
-        </div>
-      </section>
-
-      {/* 5. TESTIMONIALS: deep indigo */}
-      <section className="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-950 py-16 text-white sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-extrabold text-white">Homeowners talk about the process</h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <figure key={t.name} className="rounded-xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur transition duration-200 hover:-translate-y-1 hover:border-emerald-400/50">
-                <div className="flex items-center justify-between">
-                  <Stars />
-                  <span className="rounded-full bg-blue-100 p-2 text-blue-600"><Quote size={16} aria-hidden="true" /></span>
-                </div>
-                <blockquote className="mt-4 leading-7 text-slate-200">{t.quote}</blockquote>
-                <figcaption className="mt-4 text-sm font-bold text-amber-300">{t.name} <span className="font-medium text-slate-400">, {t.role}</span></figcaption>
-              </figure>
-            ))}
           </div>
         </div>
       </section>

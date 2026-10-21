@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BadgeCheck, Check, ChevronDown, Flame, Lock, Quote, ShieldCheck, Star, Wind, Wrench, Zap, Refrigerator, Handshake, Layers } from "lucide-react";
+import { Check, ChevronDown, Flame, Lock, ShieldCheck, Users, Wind, Wrench, Zap, Refrigerator, Handshake, Layers } from "lucide-react";
 import { CallBox } from "@/components/call-cta";
 import { LeadForm } from "@/components/lead-form";
 
@@ -48,26 +48,12 @@ const covered = [
   { icon: Flame, title: "Kitchen appliances", items: ["Oven, range and cooktop", "Dishwasher and refrigerator", "Subject to plan limits"] },
 ];
 
-// Trust pills were requested for the design; publish only what you can substantiate.
+// Only claims the site can back up. Don't add ratings, guarantees or reviews without proof.
 const trustPills = [
   { icon: Lock, text: "SSL Encryption" },
-  { icon: BadgeCheck, text: "A+ Rated Provider Network" },
-  { icon: Handshake, text: "Zero Obligation Guarantee" },
+  { icon: Users, text: "Independent providers" },
+  { icon: Handshake, text: "No obligation" },
 ];
-
-// Placeholder review: replace with real, attributable customer feedback before launch.
-const testimonials = [
-  { name: "Robert K.", detail: "Single-family homeowner", text: "Picking appliances, systems or both up front made it simple to compare what was actually on offer." },
-  { name: "Tanya P.", detail: "Condo owner", text: "I liked that I could say I was already covered and just look at alternatives, no pressure." },
-];
-
-function Stars({ size = 18 }: { size?: number }) {
-  return (
-    <div className="flex gap-0.5" role="img" aria-label="5 out of 5 stars">
-      {Array.from({ length: 5 }).map((_, i) => <Star key={i} size={size} className="fill-amber-400 text-amber-400" aria-hidden="true" />)}
-    </div>
-  );
-}
 
 /**
  * Selectable coverage cards to replace the plain radio group inside your wizard.
@@ -121,10 +107,7 @@ function HomeWarrantyPage() {
             <p className="mt-5 max-w-xl text-lg leading-8 text-slate-300">
               Compare home warranty options for the appliances and systems that keep your home running. Share a few details to help find relevant options.
             </p>
-            <div className="mt-6 flex items-center gap-3">
-              <Stars />
-              <span className="text-sm font-semibold text-slate-200">Coverage varies by plan. Review terms and exclusions.</span>
-            </div>
+            <p className="mt-6 text-sm font-semibold text-slate-200">Coverage varies by plan. Review terms and exclusions.</p>
           </div>
 
           <CallBox buttonClassName="bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-300" />
@@ -192,26 +175,6 @@ function HomeWarrantyPage() {
               ))}
             </ul>
           </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="bg-gradient-to-br from-blue-950 via-slate-900 to-indigo-950 py-14 text-white sm:py-16">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6">
-          <h2 className="text-center text-3xl font-extrabold text-white">What homeowners say</h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
-            {testimonials.map((t) => (
-              <figure key={t.name} className="rounded-xl border border-slate-700 bg-slate-800/80 p-6 shadow-xl transition duration-200 hover:-translate-y-1 hover:border-blue-400/50">
-                <div className="flex items-center justify-between">
-                  <Stars size={16} />
-                  <span className="rounded-full bg-blue-100 p-2 text-blue-600"><Quote size={16} aria-hidden="true" /></span>
-                </div>
-                <blockquote className="mt-4 leading-7 text-slate-200">“{t.text}”</blockquote>
-                <figcaption className="mt-4 text-sm font-bold text-amber-300">{t.name} <span className="font-medium text-slate-400">, {t.detail}</span></figcaption>
-              </figure>
-            ))}
-          </div>
-          <p className="mt-5 text-center text-xs text-slate-400">Illustrative examples only. Individual experiences and results vary.</p>
         </div>
       </section>
 

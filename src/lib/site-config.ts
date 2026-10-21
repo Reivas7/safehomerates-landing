@@ -42,7 +42,7 @@ export const popularServices = [
   { name: "Windows", description: "Energy-efficient window replacement", icon: PanelsTopLeft },
   { name: "Kitchen Remodel", description: "Plan and price your ideal kitchen", icon: CookingPot },
   { name: "Bathroom Remodel", description: "Updates from fixtures to full renovations", icon: Bath },
-  { name: "General Contracting", description: "Vetted help for projects large and small", icon: Hammer },
+  { name: "General Contracting", description: "Help for projects large and small", icon: Hammer },
   { name: "Appliance Protection", description: "Coverage for essential home systems", icon: ShieldCheck },
 ];
 
