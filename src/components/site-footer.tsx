@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { footerNavigation, referralDisclaimer } from "../lib/site-config";
+import { callHours, callNumber, footerNavigation, referralDisclaimer } from "../lib/site-config";
 
 export function SiteFooter() {
   return (
@@ -38,7 +38,10 @@ export function SiteFooter() {
           </nav>
           <div>
             <h2 className="text-sm font-extrabold">Contact Us</h2>
-            <a href="tel:+13077851466" className="mt-4 inline-block text-sm font-semibold text-footer-muted hover:text-footer-foreground">+13077851466</a>
+            <p className="mt-4 text-sm text-footer-muted">
+              <a href={`tel:${callNumber.tel}`} className="font-semibold hover:text-footer-foreground">{callNumber.display}</a>
+              <span className="block sm:inline"><span className="hidden sm:inline"> · </span>{callHours}</span>
+            </p>
             <address className="mt-3 text-sm not-italic leading-6 text-footer-muted">
               Safe Home Rates<br />
               30 N Gould St<br />

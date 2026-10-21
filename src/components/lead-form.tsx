@@ -53,11 +53,6 @@ const baseSchema = z.object({
   firstName: z.string().trim().min(1, "Enter your first name."),
   lastName: z.string().trim().min(1, "Enter your last name."),
   phone: z.string().refine((value) => /^\d{10}$/.test(value.replace(/\D/g, "")), "Enter a valid 10-digit phone number."),
-  dateOfBirth: z.string().refine((value) => {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-    const date = new Date(`${value}T00:00:00.000Z`);
-    return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value && value <= new Date().toISOString().slice(0, 10);
-  }, "Enter a valid date of birth."),
   state: z.string().refine((value) => stateCodes.has(value as (typeof states)[number][0]), "Choose a state."),
   zipCode: z.string().regex(/^\d{5}$/, "Enter a valid 5-digit ZIP code."),
   city: z.string().trim().min(1, "Enter your city."),
@@ -96,7 +91,6 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
       firstName: "",
       lastName: "",
       phone: "",
-      dateOfBirth: "",
       state: "",
       zipCode: "",
       city: "",
@@ -158,7 +152,6 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
       trustedFormCertUrl,
       serviceType,
       answers: {
-        dateOfBirth: values.dateOfBirth,
         state: values.state,
         city: values.city,
         address: values.address,
@@ -167,7 +160,6 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
       firstName: values.firstName,
       lastName: values.lastName,
       phone: values.phone,
-      dateOfBirth: values.dateOfBirth,
       state: values.state,
       city: values.city,
       address: values.address,
@@ -175,7 +167,6 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
         firstName: values.firstName,
         lastName: values.lastName,
         phone: values.phone,
-        dateOfBirth: values.dateOfBirth,
         state: values.state,
         zipCode: values.zipCode,
         city: values.city,
@@ -242,11 +233,6 @@ export function LeadForm({ serviceType, presentation = "section" }: LeadFormProp
                   onChange={(event) => setValue("phone", formatPhoneNumber(event.target.value), { shouldDirty: true, shouldValidate: true })}
                 />
                 <ErrorMessage message={errors.phone?.message} />
-              </div>
-              <div>
-                <label className={labelClass} htmlFor="dateOfBirth">Date of birth</label>
-                <Input id="dateOfBirth" type="date" autoComplete="bday" max={new Date().toISOString().slice(0, 10)} {...register("dateOfBirth")} />
-                <ErrorMessage message={errors.dateOfBirth?.message} />
               </div>
               <div className="sm:col-span-2">
                 <label className={labelClass} htmlFor="address">Street address</label>

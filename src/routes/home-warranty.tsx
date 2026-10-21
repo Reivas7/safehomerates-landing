@@ -112,7 +112,7 @@ function HomeWarrantyPage() {
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1.5 text-sm font-bold text-blue-400">
-              <ShieldCheck size={15} aria-hidden="true" /> Licensed Warranty Specialists &amp; Nationwide Coverage
+              <ShieldCheck size={15} aria-hidden="true" /> Home service connections
             </span>
             <h1 className="mt-5 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">
               Comprehensive Protection for Your Home’s <span className="text-emerald-400">Critical Systems &amp; Appliances</span>

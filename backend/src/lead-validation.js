@@ -40,7 +40,8 @@ function optionalHttpsUrl(value, field) {
   }
 }
 
-function requireDateOfBirth(value) {
+function optionalDateOfBirth(value) {
+  if (value == null || value === "") return "";
   const dateOfBirth = requireText(value, "date of birth", 10);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dateOfBirth)) {
     throw new LeadValidationError("Invalid date of birth.");
@@ -74,7 +75,7 @@ export function validateLead(body) {
   const phone = requireText(body.phone ?? contact.phone, "phone", 40);
   if (!/^\d{10}$/.test(phone.replace(/\D/g, ""))) throw new LeadValidationError("Invalid phone.");
 
-  const dateOfBirth = requireDateOfBirth(body.dateOfBirth ?? contact.dateOfBirth);
+  const dateOfBirth = optionalDateOfBirth(body.dateOfBirth ?? contact.dateOfBirth);
   const state = requireText(body.state ?? contact.state, "state", 2).toUpperCase();
   if (!stateCodes.has(state)) throw new LeadValidationError("Invalid state.");
   const city = requireText(body.city ?? contact.city, "city", 100);
