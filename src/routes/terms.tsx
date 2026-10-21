@@ -131,7 +131,7 @@ function TermsPage() {
 				{
 					id: "notices",
 					title: "Notices",
-					content: <p>Send legal notices to Safe Home Rates, 30 N Gould St, 48907, Sheridan, WY 82801, or [LEGAL EMAIL ADDRESS]. We may send notices to the most recent email address or phone number you gave us. Notices sent by email are treated as received 24 hours after sending unless we learn the address is invalid.</p>,
+					content: <p>Send legal notices to Safe Home Rates, 30 N Gould St, Sheridan, WY 82801, or [LEGAL EMAIL ADDRESS]. We may send notices to the most recent email address or phone number you gave us. Notices sent by email are treated as received 24 hours after sending unless we learn the address is invalid.</p>,
 				},
 				{
 					id: "changes",
@@ -151,7 +151,7 @@ function TermsPage() {
 				{
 					id: "contact",
 					title: "Contact Information",
-					content: <p>Safe Home Rates<br />30 N Gould St, 48907<br />Sheridan, WY 82801<br />+13077851466</p>,
+					content: <p>Safe Home Rates<br />30 N Gould St<br />Sheridan, WY 82801<br />+13077851466</p>,
 				},
 			]}
 		/>

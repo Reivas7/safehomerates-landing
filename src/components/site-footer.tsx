@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { footerNavigation } from "../lib/site-config";
+import { footerNavigation, referralDisclaimer } from "../lib/site-config";
 
 export function SiteFooter() {
   return (
@@ -14,7 +14,7 @@ export function SiteFooter() {
               Compare ways to get help with home repairs, maintenance, improvement projects and warranty options. Tell us what your home needs and we may connect your request with independent providers.
             </p>
             <p className="mt-3 text-xs leading-5 text-footer-muted">
-              SafeHomeRates is a lead-generation service. We are not a contractor, insurer or home warranty provider. Service availability, pricing and terms vary by independent provider.
+              {referralDisclaimer}
             </p>
           </div>
           <nav aria-label="Quick links">
@@ -41,7 +41,7 @@ export function SiteFooter() {
             <a href="tel:+13077851466" className="mt-4 inline-block text-sm font-semibold text-footer-muted hover:text-footer-foreground">+13077851466</a>
             <address className="mt-3 text-sm not-italic leading-6 text-footer-muted">
               Safe Home Rates<br />
-              30 N Gould St, 48907<br />
+              30 N Gould St<br />
               Sheridan, WY 82801
             </address>
           </div>

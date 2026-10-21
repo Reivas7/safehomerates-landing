@@ -116,7 +116,7 @@ function PrivacyPage() {
 				{
 					id: "contact",
 					title: "Contact Us",
-					content: <p>Privacy questions and requests:<br />Safe Home Rates<br />30 N Gould St, 48907<br />Sheridan, WY 82801<br />+13077851466</p>,
+					content: <p>Privacy questions and requests:<br />Safe Home Rates<br />30 N Gould St<br />Sheridan, WY 82801<br />+13077851466</p>,
 				},
 			]}
 		/>

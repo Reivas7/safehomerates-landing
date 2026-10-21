@@ -9,6 +9,14 @@ import {
   Wrench,
 } from "lucide-react";
 
+// TODO(Toby): replace with the ResultCalls tracking number and confirmed hours.
+// Interim value is the existing company line, so calls are NOT yet tracked.
+export const callNumber = { display: "+13077851466", tel: "+13077851466" };
+export const callHours = "Mon–Fri 9am–6pm ET";
+
+export const referralDisclaimer =
+  "SafeHomeRates is a free referral service. When you call, you’ll be connected with an independent home service provider in our network. We are not a contractor and don’t perform any work ourselves. Availability and pricing vary by provider.";
+
 export const primaryNavigation = [
   { label: "About Us", to: "/about" as const },
   { label: "Contact Us", to: "/contact" as const },

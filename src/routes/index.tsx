@@ -8,14 +8,12 @@ import {
   House,
   Minus,
   Plus,
-  Quote,
   ShieldCheck,
-  Star,
   ThermometerSun,
   Users,
   Wrench,
 } from "lucide-react";
-import { Button } from "../components/ui/button";
+import { CallCta } from "@/components/call-cta";
 import { LeadForm } from "@/components/lead-form";
 import { popularServices } from "../lib/site-config";
 
@@ -52,13 +50,6 @@ const steps = [
   { icon: FileCheck2, number: "03", title: "Compare & Save", text: "Review details, ask questions and decide what works for your home." },
 ];
 
-// PLACEHOLDERS: replace with real, consented customer reviews before launch.
-const testimonials = [
-  { quote: "I received several options without spending hours calling around. The whole process felt straightforward.", name: "Maya R.", project: "Roofing request" },
-  { quote: "We found a local HVAC company quickly and could compare the details before deciding.", name: "Daniel T.", project: "HVAC request" },
-  { quote: "A convenient place to start when we were planning our kitchen update and needed estimates.", name: "Lisa M.", project: "Kitchen project" },
-];
-
 const faqs = [
   { question: "Is SafeHomeRates free to use?", answer: "Yes. Requesting and comparing quotes through SafeHomeRates is free, and there is no obligation to hire or purchase." },
   { question: "How does the matching process work?", answer: "You tell us what you need. We use those details to connect you with providers that may serve your area and fit your request." },
@@ -66,16 +57,6 @@ const faqs = [
   { question: "Will I be required to accept a quote?", answer: "No. You are free to compare your options and decide whether any provider is right for you." },
   { question: "What types of home projects can I request quotes for?", answer: "Common requests include plumbing, HVAC, roofing, windows, remodeling and home warranty coverage, among many others." },
 ];
-
-function Stars({ size = 18 }: { size?: number }) {
-  return (
-    <div className="flex gap-0.5" role="img" aria-label="5 out of 5 stars">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} size={size} className="fill-amber-400 text-amber-400" aria-hidden="true" />
-      ))}
-    </div>
-  );
-}
 
 const cardBase =
   "group flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500";
@@ -95,7 +76,7 @@ function HomePage() {
         <div className="absolute -left-24 top-0 -z-10 size-96 rounded-full bg-emerald-500/20 blur-3xl" aria-hidden="true" />
         <div className="absolute -right-20 bottom-0 -z-10 size-96 rounded-full bg-indigo-500/25 blur-3xl" aria-hidden="true" />
 
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <div className="max-w-2xl">
             <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-3.5 py-1.5 text-sm font-bold text-emerald-300 shadow-[0_0_20px_rgba(52,211,153,0.25)]">
               <BadgeCheck size={16} aria-hidden="true" /> A clearer way to find home help
@@ -104,7 +85,10 @@ function HomePage() {
               Compare Top Local{" "}
               <span className="text-emerald-400 [text-shadow:0_0_30px_rgba(52,211,153,0.45)]">Home Quotes</span> in Minutes
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
+            <div className="mt-6">
+              <CallCta />
+            </div>
+            <p className="mt-8 max-w-xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
               Tell us what your home needs. We’ll help connect you with independent providers so you can compare options without the runaround.
             </p>
             <ul className="mt-8 grid gap-3 text-sm font-semibold sm:grid-cols-2">
@@ -120,13 +104,6 @@ function HomePage() {
             </a>
           </div>
 
-          {/* Floating form card — LeadForm props unchanged */}
-          <div className="rounded-2xl border border-slate-100 bg-white p-6 text-slate-900 shadow-2xl ring-1 ring-emerald-400/20 sm:p-8 lg:-mb-6 lg:translate-y-2">
-            <LeadForm
-              serviceType="home-services"
-              presentation="hero"
-            />
-          </div>
         </div>
       </section>
 
@@ -210,29 +187,13 @@ function HomePage() {
         </div>
       </section>
 
-      {/* 6. TESTIMONIALS — white */}
-      <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">A more considered way to compare</h2>
-            <p className="mt-3 leading-7 text-slate-600">A helpful starting point should be straightforward, transparent and on your terms.</p>
+      {/* 6. BACKUP REQUEST FORM — white */}
+      <section id="request-form" className="scroll-mt-20 bg-white py-16 lg:py-24">
+        <div className="mx-auto max-w-xl px-4 sm:px-6">
+          <h2 className="text-center text-2xl font-extrabold text-slate-900 sm:text-3xl">Prefer not to call? Request quotes online</h2>
+          <div className="mt-8 rounded-2xl border border-slate-100 bg-white p-6 text-slate-900 shadow-2xl ring-1 ring-emerald-400/20 sm:p-8">
+            <LeadForm serviceType="home-services" presentation="hero" />
           </div>
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <figure key={t.name} className="flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <div className="flex items-center justify-between">
-                  <Stars size={16} />
-                  <span className="rounded-full bg-indigo-50 p-2 text-indigo-600"><Quote size={16} aria-hidden="true" /></span>
-                </div>
-                <blockquote className="mt-4 flex-1 text-sm leading-7 text-slate-700">“{t.quote}”</blockquote>
-                <figcaption className="mt-5 border-t border-slate-200 pt-4 text-sm">
-                  <strong className="text-slate-900">{t.name}</strong>
-                  <span className="ml-2 text-slate-500">{t.project}</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <p className="mt-6 text-center text-xs text-slate-500">Illustrative examples only. Individual experiences and results vary.</p>
         </div>
       </section>
 
@@ -259,14 +220,9 @@ function HomePage() {
 
       {/* 8. CLOSING CTA — navy */}
       <section className="bg-[#0B1120] py-14 text-white lg:py-16">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 sm:px-6 md:flex-row md:items-center lg:px-8">
-          <div>
-            <h2 className="text-2xl font-extrabold sm:text-3xl">Take the first step toward the right help.</h2>
-            <p className="mt-3 text-sm text-slate-300">A short request. No cost to compare. Your decision stays yours.</p>
-          </div>
-          <Button asChild variant="quote" size="lg" className="transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
-            <Link to="/home-services">Start a request <ArrowRight size={18} aria-hidden="true" /></Link>
-          </Button>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-6 text-2xl font-extrabold sm:text-3xl">Take the first step toward the right help.</h2>
+          <CallCta />
         </div>
       </section>
     </main>

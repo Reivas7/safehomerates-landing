@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { primaryNavigation, serviceNavigation } from "../lib/site-config";
+import { callNumber, primaryNavigation, serviceNavigation } from "../lib/site-config";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
@@ -52,7 +52,7 @@ export function SiteHeader() {
 
         <div className="hidden lg:block">
           <Button asChild variant="quote">
-            <a href="tel:+13077851466">Requesting a Call: +13077851466</a>
+            <a href={`tel:${callNumber.tel}`}>{callNumber.display}</a>
           </Button>
         </div>
 
@@ -108,7 +108,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <Button asChild variant="quote" className="mt-3 w-full">
-              <a href="tel:+13077851466">Requesting a Call: +13077851466</a>
+              <a href={`tel:${callNumber.tel}`}>{callNumber.display}</a>
             </Button>
           </div>
         </nav>

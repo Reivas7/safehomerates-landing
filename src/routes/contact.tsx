@@ -60,7 +60,7 @@ function ContactPage() {
             <address className="mt-5 not-italic">
               <span className="flex items-start gap-3 text-base font-bold leading-7 text-slate-900">
                 <MapPin size={19} className="mt-1 shrink-0 text-blue-600" aria-hidden="true" />
-                <span>Safe Home Rates<br />30 N Gould St, 48907</span>
+                <span>Safe Home Rates<br />30 N Gould St, Sheridan, WY 82801</span>
               </span>
               <span className="mt-1 block pl-8 text-sm leading-6 text-slate-600">Sheridan, WY 82801</span>
             </address>
