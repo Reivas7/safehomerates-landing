@@ -52,7 +52,7 @@ export function SiteHeader() {
 
         <div className="hidden lg:block">
           <Button asChild variant="quote">
-            <a href={`tel:${callNumber.tel}`}>{callNumber.display}</a>
+            <a href={`tel:${callNumber.tel}`}>Call: {callNumber.display}</a>
           </Button>
         </div>
 
@@ -108,7 +108,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <Button asChild variant="quote" className="mt-3 w-full">
-              <a href={`tel:${callNumber.tel}`}>{callNumber.display}</a>
+              <a href={`tel:${callNumber.tel}`}>Call: {callNumber.display}</a>
             </Button>
           </div>
         </nav>
