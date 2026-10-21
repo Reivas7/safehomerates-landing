@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { BadgeCheck, ChevronDown, Fan, Hammer, Home, MapPin, PanelTop, Phone, ShieldCheck, Sun, Utensils, FileCheck2 } from "lucide-react";
-import { callHours, callNumber } from "@/lib/site-config";
+import { CallBox } from "@/components/call-cta";
+import { LeadForm } from "@/components/lead-form";
+import { callNumber } from "@/lib/site-config";
 
 export const Route = createFileRoute("/home-improvement")({
   head: () => ({
@@ -108,16 +110,7 @@ function HomeImprovementPage() {
           </div>
 
           {/* Call box */}
-          <div className="rounded-2xl border border-slate-100 bg-white p-6 text-center text-slate-900 shadow-2xl transition-all duration-300 hover:shadow-amber-500/10 sm:p-8">
-            <h2 className="text-2xl font-extrabold text-slate-900">Talk to a local pro about your project</h2>
-            <a
-              href={`tel:${callNumber.tel}`}
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-4 text-lg font-extrabold text-slate-950 shadow-lg transition duration-200 hover:-translate-y-0.5 hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-300"
-            >
-              <Phone size={20} aria-hidden="true" /> Call {callNumber.display}
-            </a>
-            <p className="mt-4 text-sm font-semibold text-slate-600">Free to compare · No obligation · {callHours}</p>
-          </div>
+          <CallBox buttonClassName="bg-amber-500 text-slate-950 hover:bg-amber-400 focus-visible:ring-amber-300" />
         </div>
       </section>
 
@@ -156,6 +149,17 @@ function HomeImprovementPage() {
                 </div>
               </a>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* REQUEST FORM */}
+      <section id="quote-form" className="scroll-mt-24 border-t border-slate-200 bg-slate-50 py-16 sm:py-20">
+        <div className="mx-auto max-w-xl px-4 sm:px-6">
+          <h2 className="text-center text-3xl font-extrabold text-slate-900">Prefer not to call? Send your request online</h2>
+          <div className="mt-8 rounded-2xl border border-slate-100 bg-white p-6 text-slate-900 shadow-2xl sm:p-8
+            [&_input]:focus:ring-2 [&_input]:focus:ring-amber-500 [&_select]:focus:ring-2 [&_select]:focus:ring-amber-500 [&_textarea]:focus:ring-2 [&_textarea]:focus:ring-amber-500">
+            <LeadForm serviceType="home-improvement" presentation="hero" />
           </div>
         </div>
       </section>

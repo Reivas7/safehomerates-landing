@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BadgeCheck, Check, ChevronDown, Flame, Lock, Quote, ShieldCheck, Star, Wind, Wrench, Zap, Refrigerator, Handshake, Layers } from "lucide-react";
+import { CallBox } from "@/components/call-cta";
 import { LeadForm } from "@/components/lead-form";
 
 export const Route = createFileRoute("/home-warranty")({
@@ -126,17 +127,7 @@ function HomeWarrantyPage() {
             </div>
           </div>
 
-          <div id="quote-form" className="scroll-mt-24 rounded-2xl border border-slate-100 bg-white p-6 text-slate-900 shadow-2xl transition-all duration-300 hover:shadow-blue-500/10 sm:p-8
-            [&_input]:focus:ring-2 [&_input]:focus:ring-blue-500 [&_select]:focus:ring-2 [&_select]:focus:ring-blue-500">
-            <LeadForm serviceType="home-warranty" presentation="hero" />
-            <ul className="mt-6 flex flex-wrap gap-2 border-t border-slate-100 pt-5">
-              {trustPills.map(({ icon: Icon, text }) => (
-                <li key={text} className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700">
-                  <Icon size={14} className="text-emerald-600" aria-hidden="true" /> {text}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <CallBox buttonClassName="bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-300" />
         </div>
       </section>
 
@@ -145,7 +136,7 @@ function HomeWarrantyPage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-extrabold text-slate-900">Choose the coverage that fits</h2>
-            <p className="mt-3 text-slate-600">Appliances, systems or both. Pick your interest in the form above.</p>
+            <p className="mt-3 text-slate-600">Appliances, systems or both. Call to talk it through, or pick your interest in the form below.</p>
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {tiers.map(({ icon: Icon, title, text, tone, badge }) => (
@@ -182,6 +173,24 @@ function HomeWarrantyPage() {
                 </ul>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* REQUEST FORM */}
+      <section id="quote-form" className="scroll-mt-24 bg-slate-50 py-14 sm:py-16">
+        <div className="mx-auto max-w-xl px-4 sm:px-6">
+          <h2 className="text-center text-3xl font-extrabold text-slate-900">Prefer not to call? Send your request online</h2>
+          <div className="mt-8 rounded-2xl border border-slate-100 bg-white p-6 text-slate-900 shadow-2xl sm:p-8
+            [&_input]:focus:ring-2 [&_input]:focus:ring-blue-500 [&_select]:focus:ring-2 [&_select]:focus:ring-blue-500">
+            <LeadForm serviceType="home-warranty" presentation="hero" />
+            <ul className="mt-6 flex flex-wrap gap-2 border-t border-slate-100 pt-5">
+              {trustPills.map(({ icon: Icon, text }) => (
+                <li key={text} className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700">
+                  <Icon size={14} className="text-emerald-600" aria-hidden="true" /> {text}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

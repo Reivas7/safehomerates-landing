@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BadgeCheck, Clock, Droplets, Wrench, Zap, Wind, Bug, Sparkles, Leaf, ShieldCheck, Star, Quote, ChevronDown } from "lucide-react";
+import { CallBox } from "@/components/call-cta";
 import { LeadForm } from "@/components/lead-form";
 
 export const Route = createFileRoute("/home-services")({
@@ -106,10 +107,7 @@ function HomeServicesPage() {
             </ul>
           </div>
 
-          {/* Floating wizard card */}
-          <div id="quote-form" className="scroll-mt-24 rounded-2xl border border-slate-200/80 bg-white p-5 text-slate-900 shadow-2xl ring-1 ring-black/5 transition-all duration-300 hover:shadow-emerald-500/10 sm:p-7">
-            <LeadForm serviceType="home-services" presentation="hero" />
-          </div>
+          <CallBox buttonClassName="bg-emerald-600 text-white hover:bg-emerald-500 focus-visible:ring-emerald-300" />
         </div>
       </section>
 
@@ -169,6 +167,16 @@ function HomeServicesPage() {
             <a href="#quote-form" className="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-6 py-3 font-bold text-white shadow-lg transition duration-200 hover:-translate-y-0.5 hover:bg-emerald-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-300 active:ring-4 active:ring-emerald-300">
               Start my request
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* REQUEST FORM */}
+      <section id="quote-form" className="scroll-mt-24 bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-xl px-4 sm:px-6">
+          <h2 className="text-center text-3xl font-extrabold text-slate-900">Prefer not to call? Send your request online</h2>
+          <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white p-5 text-slate-900 shadow-2xl ring-1 ring-black/5 sm:p-7">
+            <LeadForm serviceType="home-services" presentation="hero" />
           </div>
         </div>
       </section>
