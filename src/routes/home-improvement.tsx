@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronDown, Fan, Hammer, Home, MapPin, PanelTop, Phone, Sun, Utensils, FileCheck2 } from "lucide-react";
+import { ChevronDown, CloudRain, DoorOpen, Fan, Hammer, Home, MapPin, PanelTop, Phone, ShowerHead, Sun, Utensils, FileCheck2 } from "lucide-react";
 import { CallBox } from "@/components/call-cta";
 import { LeadForm } from "@/components/lead-form";
 import { callNumber } from "@/lib/site-config";
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/home-improvement")({
   head: () => ({
     meta: [
       { title: "Compare Home Improvement Quotes | SafeHomeRates" },
-      { name: "description", content: "Talk to a local pro about roofing, windows, kitchen and bathroom remodels, flooring, siding, solar and more." },
+      { name: "description", content: "Talk to a local pro about roofing, windows, kitchen and bathroom remodels, walk-in tubs and showers, doors, flooring, gutters, siding, solar and more." },
       { property: "og:title", content: "Compare Home Improvement Quotes | SafeHomeRates" },
       { property: "og:description", content: "Tell us about your renovation and compare options from participating providers." },
       { property: "og:type", content: "website" },
@@ -40,6 +40,9 @@ const projects = [
   { icon: Utensils, label: "Kitchen & Bath", tag: "Most requested", src: img("photo-1556911220-bff31c812dba") },
   { icon: Fan, label: "HVAC", tag: "Comfort upgrades", src: img("photo-1585771724684-38269d6639fd") },
   { icon: Sun, label: "Solar", tag: "Energy savings", src: img("photo-1509391366360-2e959784a276") },
+  { icon: ShowerHead, label: "Walk-in Tubs & Showers", tag: "Safer bathing", src: img("photo-1600566752355-35792bedcfea") },
+  { icon: DoorOpen, label: "Doors", tag: "Entry & patio", src: img("photo-1570129477492-45c003edd2be") },
+  { icon: CloudRain, label: "Gutters", tag: "Exterior protection", src: img("photo-1558036117-15d82a90b9b1") },
   { icon: Hammer, label: "Flooring & More", tag: "Something else?", src: img("photo-1581858726788-75bc0f6a952d") },
 ];
 

@@ -1,12 +1,20 @@
 import {
   Bath,
+  Cctv,
+  CloudRain,
   CookingPot,
+  DoorOpen,
   Fan,
+  Flame,
   Hammer,
   House,
+  Layers,
   PanelsTopLeft,
   ShieldCheck,
+  ShowerHead,
+  WashingMachine,
   Wrench,
+  Zap,
 } from "lucide-react";
 
 // TODO(Toby): replace with the ResultCalls tracking number and confirmed hours.
@@ -38,12 +46,20 @@ export const footerNavigation = [
 export const popularServices = [
   { name: "Plumbing", description: "Leaks, clogs, fixtures and repairs", icon: Wrench },
   { name: "Heating & Cooling", description: "HVAC repair, service and installation", icon: Fan },
+  { name: "Electrical", description: "Wiring, panels, outlets and lighting", icon: Zap },
   { name: "Roofing", description: "Roof repair and replacement quotes", icon: House },
   { name: "Windows", description: "Energy-efficient window replacement", icon: PanelsTopLeft },
   { name: "Kitchen Remodel", description: "Plan and price your ideal kitchen", icon: CookingPot },
   { name: "Bathroom Remodel", description: "Updates from fixtures to full renovations", icon: Bath },
   { name: "General Contracting", description: "Help for projects large and small", icon: Hammer },
   { name: "Appliance Protection", description: "Coverage for essential home systems", icon: ShieldCheck },
+  { name: "Doors", description: "Entry, patio and interior door installation", icon: DoorOpen },
+  { name: "Flooring", description: "Hardwood, tile, vinyl and carpet options", icon: Layers },
+  { name: "Gutters", description: "Gutter cleaning, repair and installation", icon: CloudRain },
+  { name: "Water & Fire Damage Restoration", description: "Cleanup and restoration after damage", icon: Flame },
+  { name: "Appliance Repair", description: "Fixes for washers, fridges, ovens and more", icon: WashingMachine },
+  { name: "Home Security", description: "Alarms, cameras and monitoring systems", icon: Cctv },
+  { name: "Walk-in Tubs & Showers", description: "Walk-in tub and shower replacement", icon: ShowerHead },
 ];
 
 export const apiBaseUrl = import.meta.env["VITE_API_URL"];

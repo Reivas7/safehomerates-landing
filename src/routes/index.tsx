@@ -55,7 +55,7 @@ const faqs = [
   { question: "How does the matching process work?", answer: "You tell us what you need. We use those details to connect you with providers that may serve your area and fit your request." },
   { question: "Who are the service providers?", answer: "Providers are independent businesses, not SafeHomeRates employees. Check each provider's licensing, insurance, references and terms before making a decision." },
   { question: "Will I be required to accept a quote?", answer: "No. You are free to compare your options and decide whether any provider is right for you." },
-  { question: "What types of home projects can I request quotes for?", answer: "Common requests include plumbing, HVAC, roofing, windows, remodeling and home warranty coverage, among many others." },
+  { question: "What types of home projects can I request quotes for?", answer: "Common requests include plumbing, HVAC, roofing, windows, flooring, gutters, doors, appliance repair, home security, water and fire damage restoration, walk-in tubs, remodeling and home warranty coverage, among many others." },
 ];
 
 const cardBase =

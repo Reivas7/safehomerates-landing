@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BadgeCheck, Clock, Droplets, Wrench, Zap, Wind, Bug, Sparkles, Leaf, ShieldCheck, ChevronDown } from "lucide-react";
+import { BadgeCheck, Clock, Droplets, Wrench, Zap, Wind, Bug, Sparkles, Leaf, ShieldCheck, ChevronDown, WashingMachine, Cctv, CloudRain, Flame } from "lucide-react";
 import { CallBox } from "@/components/call-cta";
 import { LeadForm } from "@/components/lead-form";
 
@@ -7,7 +7,7 @@ export const Route = createFileRoute("/home-services")({
   head: () => ({
     meta: [
       { title: "Compare Local Home Service Quotes | SafeHomeRates" },
-      { name: "description", content: "Request free options for plumbing, electrical, HVAC, pest control, cleaning, landscaping and other home services." },
+      { name: "description", content: "Request free options for plumbing, electrical, HVAC, appliance repair, home security, gutters, water and fire damage restoration and other home services." },
       { property: "og:title", content: "Compare Local Home Service Quotes | SafeHomeRates" },
       { property: "og:description", content: "Tell us what your home needs and compare local home service options." },
       { property: "og:type", content: "website" },
@@ -29,6 +29,10 @@ const services = [
   { icon: Bug, label: "Pest Control", tone: "bg-rose-100 text-rose-600" },
   { icon: Sparkles, label: "Cleaning", tone: "bg-violet-100 text-violet-600" },
   { icon: Leaf, label: "Landscaping", tone: "bg-emerald-100 text-emerald-600" },
+  { icon: WashingMachine, label: "Appliance Repair", tone: "bg-indigo-100 text-indigo-600" },
+  { icon: Cctv, label: "Home Security", tone: "bg-slate-200 text-slate-700" },
+  { icon: CloudRain, label: "Gutters", tone: "bg-cyan-100 text-cyan-600" },
+  { icon: Flame, label: "Water & Fire Damage", tone: "bg-orange-100 text-orange-600" },
 ];
 
 const benefits = [
@@ -45,7 +49,7 @@ const trust = [
 
 const faqs = [
   { question: "Does it cost anything to request options?", answer: "No. Sending a request through SafeHomeRates is free, and you are not required to hire a provider." },
-  { question: "Which home services can I ask about?", answer: "You can request plumbing, electrical, HVAC, pest control, cleaning, landscaping or another home service." },
+  { question: "Which home services can I ask about?", answer: "You can request plumbing, electrical, HVAC, pest control, cleaning, landscaping, appliance repair, home security, gutters, water and fire damage restoration or another home service." },
   { question: "When will a provider contact me?", answer: "Availability varies by service and location. Participating providers may contact you using the details you submit." },
 ];
 
@@ -110,7 +114,7 @@ function HomeServicesPage() {
             <h2 className="mt-4 text-3xl font-extrabold text-slate-900">What does your home need?</h2>
             <p className="mt-3 text-slate-600">Pick a category to start your request in a few minutes.</p>
           </div>
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-5">
             {services.map(({ icon: Icon, label, tone }) => (
               <a key={label} href="#quote-form" className="group flex flex-col items-center gap-3 rounded-xl border border-slate-200/80 bg-white p-5 text-center shadow-lg transition duration-200 hover:-translate-y-1 hover:border-emerald-400 hover:shadow-xl hover:shadow-emerald-500/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-500">
                 <span className={`rounded-full p-3 ${tone}`}><Icon size={24} aria-hidden="true" /></span>

@@ -71,7 +71,7 @@ function PartnersPage() {
     { icon: Handshake, title: "A Direct Introduction", metric: "Direct", text: "Connect directly with independent companies and homeowners exploring their options.", tone: "bg-rose-50 text-rose-600" },
     { icon: Users, title: "A Clear Consumer Journey", metric: "Clear intent", text: "Help homeowners understand their options before they speak with you.", tone: "bg-sky-50 text-sky-600" },
   ];
-  const industries = ["Plumbing", "Electrical", "HVAC", "Roofing", "Home Warranty", "General Contracting"];
+  const industries = ["Plumbing", "Electrical", "HVAC", "Roofing", "Home Warranty", "General Contracting", "Doors", "Flooring", "Gutters", "Water & Fire Damage Restoration", "Appliance Repair", "Home Security", "Walk-in Tubs & Showers"];
   const faqs = [
     { q: "Can I filter which requests I receive?", a: "Filtering by service category and coverage area is discussed during onboarding. Subject to consumer choices, availability and partner criteria, a request may be shared with one or more providers." },
     { q: "What integration options are available?", a: "Delivery methods such as webhook, API or ping-post are reviewed with our team when you apply. Availability depends on your setup and partner criteria." },
