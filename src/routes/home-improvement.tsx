@@ -36,13 +36,13 @@ const faqs = [
 const img = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=75`;
 const projects = [
   { icon: Home, label: "Roofing", tag: "Repair & replacement", src: img("photo-1632759145351-1d592919f522") },
-  { icon: PanelTop, label: "Windows & Siding", tag: "Curb appeal", src: img("photo-1560518883-ce09059eeffa") },
+  { icon: PanelTop, label: "Windows & Siding", tag: "Curb appeal", src: img("photo-1784932328897-ba9e9df97a93") },
   { icon: Utensils, label: "Kitchen & Bath", tag: "Most requested", src: img("photo-1556911220-bff31c812dba") },
-  { icon: Fan, label: "HVAC", tag: "Comfort upgrades", src: img("photo-1585771724684-38269d6639fd") },
+  { icon: Fan, label: "HVAC", tag: "Comfort upgrades", src: img("photo-1718203862467-c33159fdc504") },
   { icon: Sun, label: "Solar", tag: "Energy savings", src: img("photo-1509391366360-2e959784a276") },
   { icon: ShowerHead, label: "Walk-in Tubs & Showers", tag: "Safer bathing", src: img("photo-1600566752355-35792bedcfea") },
-  { icon: DoorOpen, label: "Doors", tag: "Entry & patio", src: img("photo-1570129477492-45c003edd2be") },
-  { icon: CloudRain, label: "Gutters", tag: "Exterior protection", src: img("photo-1558036117-15d82a90b9b1") },
+  { icon: DoorOpen, label: "Doors", tag: "Entry & patio", src: img("photo-1770827960635-89263df7bb63") },
+  { icon: CloudRain, label: "Gutters", tag: "Exterior protection", src: img("photo-1524568292009-5c8f3fe5dcc7") },
   { icon: Hammer, label: "Flooring & More", tag: "Something else?", src: img("photo-1581858726788-75bc0f6a952d") },
 ];
 
